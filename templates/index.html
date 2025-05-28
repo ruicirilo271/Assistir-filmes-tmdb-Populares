@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Filmes TMDB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <header>
+        <h1>Filmes TMDB Populares</h1>
+        <form method="get" action="{{ url_for('index') }}">
+            <input
+                type="text"
+                name="search"
+                placeholder="Filmes TMDB Populares (pt-BR)"
+                value="{{ search or '' }}"
+                required
+            />
+            <button type="submit">Buscar</button>
+        </form>
+    </header>
+
+    <main>
+        {% if filmes %}
+            <div class="grid-filmes">
+                {% for filme in filmes %}
+                    <div class="filme-card">
+                        <a href="{{ url_for('filme') }}?titulo={{ filme.title | urlencode }}">
+                            <img src="https://image.tmdb.org/t/p/w300{{ filme.poster_path }}" alt="{{ filme.title }}" />
+                        </a>
+                        <h3>{{ filme.title }}</h3>
+                        <p>Ano: {{ filme.release_date[:4] if filme.release_date }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="nenhum">Nenhum filme encontrado.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>App feita por Rui Cirilo • TMDb API ©</p>
+    </footer>
+</body>
+</html>
+
+
+

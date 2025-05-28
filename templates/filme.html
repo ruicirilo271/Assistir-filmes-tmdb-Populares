@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ filme.titulo if filme else "Filme" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <header>
+        <h1>{{ filme.titulo if filme else "Filme" }}</h1>
+        <a href="{{ url_for('index') }}">← Voltar</a>
+    </header>
+
+    <main>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% else %}
+            <div class="video-container">
+                {% if filme.url %}
+                    <iframe src="{{ filme.url }}" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                    <p>Vídeo indisponível.</p>
+                {% endif %}
+            </div>
+            <p><a href="{{ filme.pagina }}" target="_blank" rel="noopener noreferrer">Página do filme no megafilmeshdz.cyou</a></p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>App feita por Rui Cirilo • TMDb API ©</p>
+    </footer>
+</body>
+</html>
+
+
